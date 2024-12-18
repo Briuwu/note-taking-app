@@ -1,11 +1,4 @@
-import { FontSwitcher } from "@/components/font-switcher";
-
 function Home() {
-  return (
-    <div>
-      Home
-      <FontSwitcher />
-    </div>
-  );
+  return <div className="flex justify-center">Home</div>;
 }
 export default Home;
