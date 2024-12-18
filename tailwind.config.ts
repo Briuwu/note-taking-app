@@ -9,6 +9,10 @@ export default {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        top: "0 -4px 6px 0 rgba(240, 240, 240, 60%)",
+        bottom: "0 4px 6px 0 rgba(240, 240, 240, 60%)",
+      },
       fontFamily: {
         inter: ["var(--font-inter"],
         "noto-serif": ["var(--font-noto-serif)"],
