@@ -116,7 +116,9 @@
   body {
     @apply bg-background text-foreground;
   }
+}
 
+@layer components {
   .text-preset-1 {
     @apply text-[24px] font-bold leading-[120%] tracking-[-0.5px] !important;
   }
