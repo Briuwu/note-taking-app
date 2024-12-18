@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export const SearchForm = () => {
   return (
-    <div className="flex items-center space-x-4">
+    <div className="hidden items-center space-x-4 lg:flex">
       <Form action="/" className="relative">
         <Button variant="ghost" className="absolute" size="icon">
           <Image
