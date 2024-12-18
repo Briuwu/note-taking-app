@@ -118,6 +118,26 @@
   }
 
   .text-preset-1 {
-    @apply;
+    @apply text-[24px] font-bold leading-[120%] tracking-[-0.5px];
+  }
+
+  .text-preset-2 {
+    @apply text-[20px] font-bold leading-[120%] tracking-[-0.5px];
+  }
+
+  .text-preset-3 {
+    @apply text-[16px] font-semibold leading-[120%] tracking-[-0.3px];
+  }
+
+  .text-preset-4 {
+    @apply text-[14px] font-medium leading-[120%] tracking-[-0.2px];
+  }
+
+  .text-preset-5 {
+    @apply text-[12px] font-normal leading-[120%] tracking-[-0.2px];
+  }
+
+  .text-preset-6 {
+    @apply text-[10px] font-normal leading-[120%] tracking-[-0.2px];
   }
 }

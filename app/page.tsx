@@ -1,4 +1,4 @@
 function Home() {
-  return <div className="flex justify-center">Home</div>;
+  return <div className="">Home</div>;
 }
 export default Home;
