@@ -7,7 +7,7 @@ function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="relative min-h-screen w-full">
+      <main className="relative grid h-full min-h-screen w-full grid-rows-[auto,1fr]">
         <NotesHeader />
         {children}
         <div className="fixed bottom-0 left-0 right-0 lg:hidden">
