@@ -1,5 +1,4 @@
 import { CreateNoteForm } from "./create-note-form";
-import { ShowNote } from "./show-note";
 
 export const Note = () => {
   return (

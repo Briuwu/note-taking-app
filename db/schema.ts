@@ -48,14 +48,14 @@ export const notes = pgTable("notes", {
   isArchived: boolean("is_archived").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
-    .notNull()
+    .defaultNow()
     .$onUpdate(() => new Date()),
 });
 
 export const notesRelations = relations(notes, ({ one, many }) => ({
   author: one(users, {
     fields: [notes.userId],
-    references: [users.id],
+    references: [users.userId],
   }),
   tags: many(tags),
 }));
