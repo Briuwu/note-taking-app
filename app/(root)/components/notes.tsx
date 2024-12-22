@@ -1,11 +1,21 @@
 import { getAllNotes } from "@/actions/notes";
 import { AllNotes } from "./all-notes";
 import { CreateNoteBtn } from "./create-note-btn";
+import { cn } from "@/lib/utils";
 
-export const Notes = async () => {
+type Props = {
+  className?: string;
+};
+
+export const Notes = async ({ className }: Props) => {
   const notes = await getAllNotes();
   return (
-    <div className="border-r border-neutral-200 px-4 pt-5 md:px-8 lg:w-[290px]">
+    <div
+      className={cn(
+        "h-full border-r border-neutral-200 px-4 pt-5 md:px-8 lg:w-[290px]",
+        className,
+      )}
+    >
       <CreateNoteBtn />
       {notes.length > 0 ? (
         <AllNotes notes={notes} />

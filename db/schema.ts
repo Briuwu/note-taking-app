@@ -18,6 +18,7 @@ export const usersTable = pgTable("users", {
 
 export const usersRelations = relations(usersTable, ({ many }) => ({
   notes: many(notesTable),
+  tags: many(tagsTable),
 }));
 
 export const notesTable = pgTable("notes", {
@@ -46,11 +47,18 @@ export const tagsTable = pgTable("tags", {
   noteId: integer("note_id").references(() => notesTable.id, {
     onDelete: "cascade",
   }),
+  userId: text("user_id").references(() => usersTable.userId, {
+    onDelete: "cascade",
+  }),
 });
 
 export const tagsRelations = relations(tagsTable, ({ one }) => ({
   note: one(notesTable, {
     fields: [tagsTable.noteId],
     references: [notesTable.id],
+  }),
+  author: one(usersTable, {
+    fields: [tagsTable.userId],
+    references: [usersTable.userId],
   }),
 }));

@@ -26,7 +26,7 @@ export async function getAllNotes() {
   return notesData;
 }
 
-export async function getNote({ id }: { id: number }) {
+export async function getNote(id: number) {
   const user = await currentUser();
 
   if (!user) {
@@ -45,6 +45,24 @@ export async function getNote({ id }: { id: number }) {
   }
 
   return noteData;
+}
+
+export async function getAllTags() {
+  const user = await currentUser();
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const tagsData = await db.query.tagsTable.findMany({
+    where: eq(tagsTable.userId, user.id),
+  });
+
+  if (!tagsData) {
+    return [];
+  }
+
+  return tagsData;
 }
 
 export async function addNote({
