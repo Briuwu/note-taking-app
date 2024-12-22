@@ -1,5 +1,6 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
   children,
@@ -8,6 +9,7 @@ export default function RootLayout({
     <SidebarProvider>
       <AppSidebar />
       <main className="relative w-full">{children}</main>
+      <Toaster />
     </SidebarProvider>
   );
 }

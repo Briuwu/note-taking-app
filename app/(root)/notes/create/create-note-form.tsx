@@ -1,5 +1,6 @@
 "use client";
 
+import { useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -15,6 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
+import { addNote } from "@/actions/notes";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
@@ -23,6 +26,7 @@ const formSchema = z.object({
 });
 
 export function CreateNoteForm() {
+  const [isPending, startTransition] = useTransition();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,9 +39,32 @@ export function CreateNoteForm() {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    startTransition(async () => {
+      const { title, tags, content } = values;
+
+      const tagsArray = tags.split(",").map((tag) => tag.trim());
+
+      console.log(tagsArray);
+      console.log(title, content);
+
+      await addNote({
+        title,
+        content,
+        allTags: tagsArray,
+      });
+
+      toast.success(
+        <div className="text-preset-6 flex w-[274px] items-center gap-2 text-neutral-950 md:w-[390px]">
+          <Image
+            src={"/images/icon-checkmark.svg"}
+            alt=""
+            width={24}
+            height={24}
+          />
+          Note saved successfully!
+        </div>,
+      );
+    });
   }
 
   return (
@@ -45,7 +72,7 @@ export function CreateNoteForm() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="grid flex-1 grid-rows-[auto,1fr,auto] border-neutral-200 lg:border-r"
+          className="mb-14 grid flex-1 grid-rows-[auto,1fr,auto] border-neutral-200 lg:mb-0 lg:border-r"
         >
           <div className="space-y-4 border-neutral-200 px-6 py-5 lg:border-b">
             <FormField
@@ -55,8 +82,9 @@ export function CreateNoteForm() {
                 <FormItem>
                   <FormControl className="text-preset-1 text-neutral-950">
                     <Input
+                      disabled={isPending}
                       placeholder="Enter a title..."
-                      className="border-0 shadow-none"
+                      className="text-preset-1 border-0 shadow-none"
                       {...field}
                     />
                   </FormControl>
@@ -83,6 +111,7 @@ export function CreateNoteForm() {
                     <FormItem className="text-preset-5 flex-1 text-neutral-950">
                       <FormControl>
                         <Input
+                          disabled={isPending}
                           placeholder="Add tags separated by commas (e.g. Work, Planning)"
                           className="text-preset-5 border-0 shadow-none"
                           {...field}
@@ -118,6 +147,7 @@ export function CreateNoteForm() {
                 <FormItem className="text-preset-5 h-full text-neutral-950">
                   <FormControl>
                     <Textarea
+                      disabled={isPending}
                       className="text-preset-5 h-full resize-none whitespace-pre-line border-0 text-neutral-800 shadow-none"
                       placeholder="Start typing your note here..."
                       {...field}

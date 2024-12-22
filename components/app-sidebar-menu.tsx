@@ -6,35 +6,35 @@ import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-const items = [
-  {
-    name: "All Notes",
-    href: "/",
-    icon: "/images/icon-home.svg",
-  },
-  {
-    name: "Archived Notes",
-    href: "/archives",
-    icon: "/images/icon-archive.svg",
-  },
-];
-
 export const AppSidebarMenu = () => {
   const pathname = usePathname();
+  const items = [
+    {
+      name: "All Notes",
+      href: "/",
+      icon: "/images/icon-home.svg",
+      active: pathname === "/" || /^\/notes\/\w+$/.test(pathname),
+    },
+    {
+      name: "Archived Notes",
+      href: "/archives",
+      icon: "/images/icon-archive.svg",
+      active: pathname === "/archives" || /^\/archives\/\w+$/.test(pathname),
+    },
+  ];
   return (
     <SidebarMenu>
       {items.map((item) => {
-        const active = pathname === item.href;
         return (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton
               asChild
-              className={cn(active && "bg-neutral-100")}
+              className={cn(item.active && "bg-neutral-100")}
             >
               <Link href={item.href}>
                 <Image src={item.icon} alt="" width={24} height={24} />
                 <span>{item.name}</span>
-                {active && (
+                {item.active && (
                   <Image
                     src={"/images/icon-chevron-right.svg"}
                     alt=""

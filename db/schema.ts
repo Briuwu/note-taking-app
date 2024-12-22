@@ -43,7 +43,7 @@ export const notesRelations = relations(notesTable, ({ one, many }) => ({
 
 export const tagsTable = pgTable("tags", {
   id: serial("id").primaryKey(),
-  name: text("name").notNull().unique(),
+  name: text("name").notNull(),
   noteId: integer("note_id").references(() => notesTable.id, {
     onDelete: "cascade",
   }),
