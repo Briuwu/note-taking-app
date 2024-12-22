@@ -122,7 +122,7 @@ export const ShowNote = ({ note }: Props) => {
                         <Input
                           disabled={isPending}
                           placeholder="Add tags separated by commas (e.g. Work, Planning)"
-                          className="text-preset-5 border-0 shadow-none"
+                          className="text-preset-5 h-auto rounded-none border-0 border-black p-0 shadow-none focus-visible:border-b focus-visible:ring-0"
                           {...field}
                         />
                       </FormControl>
@@ -131,6 +131,23 @@ export const ShowNote = ({ note }: Props) => {
                   )}
                 />
               </div>
+              {note.is_archived && (
+                <div className="flex items-center gap-2">
+                  <div className="flex w-[115px] items-center gap-2">
+                    <Image
+                      src={"/images/icon-status.svg"}
+                      alt=""
+                      width={24}
+                      height={24}
+                      className="h-4 w-4"
+                    />
+                    <p className="text-preset-5 text-neutral-700">Status</p>
+                  </div>
+                  <span className="text-preset-5 text-neutral-950">
+                    Archived
+                  </span>
+                </div>
+              )}
               <div className="flex items-center gap-2">
                 <div className="flex w-[115px] items-center gap-2">
                   <Image

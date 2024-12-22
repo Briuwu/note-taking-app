@@ -9,6 +9,8 @@ type Props = {
 
 export const Notes = async ({ className }: Props) => {
   const notes = await getAllNotes();
+
+  const unarchivedNotes = notes.filter((note) => !note.is_archived);
   return (
     <div
       className={cn(
@@ -18,7 +20,7 @@ export const Notes = async ({ className }: Props) => {
     >
       <CreateNoteBtn />
       {notes.length > 0 ? (
-        <AllNotes notes={notes} />
+        <AllNotes notes={unarchivedNotes} />
       ) : (
         <p className="text-preset-5 rounded-lg bg-neutral-200 p-2 text-neutral-950">
           You don&amp;t have any notes yet. Start a new note to capture your

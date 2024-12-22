@@ -1,32 +1,37 @@
 "use client";
+import { useTransition } from "react";
+import { toast } from "sonner";
 
 import { archiveNote, deleteNote } from "@/actions/notes";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { ArchiveBtn } from "./archive-btn";
+import { DeleteBtn } from "./delete-btn";
 
 type Props = {
   noteId: number;
 };
 
 export const ShowNoteOptions = ({ noteId }: Props) => {
+  const [isPending, startTransition] = useTransition();
+  const handleArchiveBtn = () => {
+    startTransition(async () => {
+      await archiveNote(noteId);
+
+      toast.success("Note archived successfully");
+    });
+  };
+
+  const handleDeleteBtn = () => {
+    startTransition(async () => {
+      await deleteNote(noteId);
+
+      toast.success("Note deleted successfully");
+    });
+  };
+
   return (
     <div className="hidden max-w-[258px] space-y-3 px-4 py-5 lg:block">
-      <Button
-        onClick={() => archiveNote(noteId)}
-        className="w-full justify-start"
-        variant="outline"
-      >
-        <Image src={"/images/icon-archive.svg"} alt="" width={24} height={24} />
-        <span className="text-preset-4 text-neutral-950">Archive Note</span>
-      </Button>
-      <Button
-        onClick={() => deleteNote(noteId)}
-        className="w-full justify-start"
-        variant="outline"
-      >
-        <Image src={"/images/icon-delete.svg"} alt="" width={24} height={24} />
-        <span className="text-preset-4 text-neutral-950">Delete Note</span>
-      </Button>
+      <ArchiveBtn onArchiveBtn={handleArchiveBtn} isPending={isPending} />
+      <DeleteBtn onDeleteBtn={handleDeleteBtn} isPending={isPending} />
     </div>
   );
 };

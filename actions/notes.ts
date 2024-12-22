@@ -6,8 +6,9 @@ import { currentUser } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { cache } from "react";
 
-export async function getAllNotes() {
+export const getAllNotes = cache(async () => {
   const user = await currentUser();
 
   if (!user) {
@@ -26,9 +27,9 @@ export async function getAllNotes() {
   }
 
   return notesData;
-}
+});
 
-export async function getNote(id: number) {
+export const getNote = cache(async (id: number) => {
   const user = await currentUser();
 
   if (!user) {
@@ -47,7 +48,7 @@ export async function getNote(id: number) {
   }
 
   return noteData;
-}
+});
 
 export async function archiveNote(noteId: number) {
   const user = await currentUser();
@@ -64,7 +65,6 @@ export async function archiveNote(noteId: number) {
     .where(and(eq(notesTable.userId, user.id), eq(notesTable.id, noteId)));
 
   revalidatePath("/notes");
-  redirect(`/archives/${noteId}`);
 }
 
 export async function deleteNote(noteId: number) {
@@ -79,10 +79,9 @@ export async function deleteNote(noteId: number) {
     .where(and(eq(notesTable.userId, user.id), eq(notesTable.id, noteId)));
 
   revalidatePath("/notes");
-  redirect("/");
 }
 
-export async function getAllTags() {
+export const getAllTags = cache(async () => {
   const user = await currentUser();
 
   if (!user) {
@@ -98,7 +97,7 @@ export async function getAllTags() {
   }
 
   return tagsData;
-}
+});
 
 export async function addNote({
   title,
