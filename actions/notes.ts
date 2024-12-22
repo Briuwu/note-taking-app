@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db";
-import { notes, tags } from "@/db/schema";
+import { notesTable, tagsTable } from "@/db/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 
@@ -12,8 +12,8 @@ export async function getAllNotes() {
     throw new Error("User not found");
   }
 
-  const notesData = await db.query.notes.findMany({
-    where: eq(notes.userId, user.id),
+  const notesData = await db.query.notesTable.findMany({
+    where: eq(notesTable.userId, user.id),
     with: {
       tags: true,
     },
@@ -33,8 +33,8 @@ export async function getNote({ id }: { id: number }) {
     throw new Error("User not found");
   }
 
-  const noteData = await db.query.notes.findFirst({
-    where: and(eq(notes.userId, user.id), eq(notes.id, id)),
+  const noteData = await db.query.notesTable.findFirst({
+    where: and(eq(notesTable.userId, user.id), eq(notesTable.id, id)),
     with: {
       tags: true,
     },
@@ -63,20 +63,20 @@ export async function addNote({
   }
 
   const noteData = await db
-    .insert(notes)
+    .insert(notesTable)
     .values({
       userId: user.id,
       title,
       content,
     })
-    .returning({ insertedId: notes.id });
+    .returning({ insertedId: notesTable.id });
 
   if (!noteData) {
     throw new Error("Note not found");
   }
 
   for (const tag of allTags) {
-    await db.insert(tags).values({
+    await db.insert(tagsTable).values({
       name: tag,
       noteId: noteData[0].insertedId,
     });

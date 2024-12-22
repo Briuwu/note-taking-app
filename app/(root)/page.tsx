@@ -1,14 +1,11 @@
-import { CreateNoteBtn } from "@/components/create-note-btn";
-import { Notes } from "@/components/notes";
-import { NotesHeader } from "@/components/notes-header";
+import { MainHeader } from "./components/main-header";
+import { Notes } from "./components/notes";
 
-function Home() {
+export default function Home() {
   return (
-    <div className="flex h-full w-full">
-      <NotesHeader />
+    <div className="grid min-h-screen grid-rows-[auto,1fr]">
+      <MainHeader />
       <Notes />
-      <CreateNoteBtn className="fixed bottom-[85px] right-8 h-16 w-16 rounded-full text-3xl lg:hidden" />
     </div>
   );
 }
-export default Home;

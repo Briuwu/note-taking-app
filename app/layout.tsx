@@ -3,6 +3,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter, Noto_Serif, Source_Code_Pro } from "next/font/google";
 import "./globals.css";
+import Image from "next/image";
+import Link from "next/link";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -35,6 +37,11 @@ export default function RootLayout({
         <body
           className={`${inter.variable} ${notoSerif.variable} ${sourceCodePro.variable} font-provider antialiased`}
         >
+          <header className="bg-neutral-100 px-4 py-3 md:px-8 md:py-6 lg:hidden">
+            <Link href="/">
+              <Image src={"/images/logo.svg"} alt="" width={95} height={28} />
+            </Link>
+          </header>
           {children}
         </body>
       </html>
