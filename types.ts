@@ -1,8 +1,8 @@
-import { notes, tags } from "./db/schema";
+import { notesTable, tagsTable } from "./db/schema";
 
-export type NotesType = typeof notes.$inferSelect;
+export type NotesType = typeof notesTable.$inferSelect;
 
-export type TagsType = typeof tags.$inferSelect;
+export type TagsType = typeof tagsTable.$inferSelect;
 
 export type NotesWithTags = NotesType & {
   tags: TagsType[];

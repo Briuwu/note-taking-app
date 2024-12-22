@@ -5,6 +5,7 @@ import { Inter, Noto_Serif, Source_Code_Pro } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
 import Link from "next/link";
+import { MobileNav } from "@/components/mobile-nav";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -35,7 +36,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${inter.variable} ${notoSerif.variable} ${sourceCodePro.variable} font-provider antialiased`}
+          className={`${inter.variable} ${notoSerif.variable} ${sourceCodePro.variable} font-provider relative antialiased`}
         >
           <header className="bg-neutral-100 px-4 py-3 md:px-8 md:py-6 lg:hidden">
             <Link href="/">
@@ -43,6 +44,7 @@ export default function RootLayout({
             </Link>
           </header>
           {children}
+          <MobileNav />
         </body>
       </html>
     </ClerkProvider>
