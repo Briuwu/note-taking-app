@@ -120,26 +120,26 @@
 
 @layer components {
   .text-preset-1 {
-    @apply text-[24px] font-bold leading-[120%] tracking-[-0.5px];
+    @apply text-[24px] font-bold leading-[120%] tracking-[-0.5px] !important;
   }
 
   .text-preset-2 {
-    @apply text-[20px] font-bold leading-[120%] tracking-[-0.5px];
+    @apply text-[20px] font-bold leading-[120%] tracking-[-0.5px] !important;
   }
 
   .text-preset-3 {
-    @apply text-[16px] font-semibold leading-[120%] tracking-[-0.3px];
+    @apply text-[16px] font-semibold leading-[120%] tracking-[-0.3px] !important;
   }
 
   .text-preset-4 {
-    @apply text-[14px] font-medium leading-[120%] tracking-[-0.2px];
+    @apply text-[14px] font-medium leading-[120%] tracking-[-0.2px] !important;
   }
 
   .text-preset-5 {
-    @apply text-[12px] font-normal leading-[120%] tracking-[-0.2px];
+    @apply text-[12px] font-normal leading-[120%] tracking-[-0.2px] !important;
   }
 
   .text-preset-6 {
-    @apply text-[10px] font-normal leading-[120%] tracking-[-0.2px];
+    @apply text-[10px] font-normal leading-[120%] tracking-[-0.2px] !important;
   }
 }
