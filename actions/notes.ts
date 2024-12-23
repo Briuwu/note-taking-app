@@ -108,6 +108,23 @@ export async function archiveNote(noteId: number) {
   revalidatePath("/notes");
 }
 
+export async function unarchiveNote(noteId: number) {
+  const user = await currentUser();
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  await db
+    .update(notesTable)
+    .set({
+      is_archived: false,
+    })
+    .where(and(eq(notesTable.userId, user.id), eq(notesTable.id, noteId)));
+
+  revalidatePath("/notes");
+}
+
 export async function deleteNote(noteId: number) {
   const user = await currentUser();
 

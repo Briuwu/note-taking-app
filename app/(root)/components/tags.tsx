@@ -1,5 +1,5 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,8 +9,10 @@ type Props = {
 };
 
 export const Tags = ({ tags }: Props) => {
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const activeTag = searchParams.get("tag");
+  const isArchive = pathname === "/archives";
 
   return (
     <div className="text-preset-4">
@@ -18,9 +20,10 @@ export const Tags = ({ tags }: Props) => {
       <ul className="space-y-1">
         {tags.map((tag) => {
           const active = tag === activeTag;
+          const href = isArchive ? `/archives?tag=${tag}` : `/?tag=${tag}`;
           return (
             <li key={tag} className={cn("p-3", active && "bg-neutral-100")}>
-              <Link href={`/?tag=${tag}`} className="flex items-center gap-2">
+              <Link href={href} className="flex items-center gap-2">
                 <Image
                   src={"/images/icon-tag.svg"}
                   alt=""

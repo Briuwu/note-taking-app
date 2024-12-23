@@ -8,7 +8,7 @@ import Image from "next/image";
 
 import { AppSidebarMenu } from "./app-sidebar-menu";
 import Link from "next/link";
-import { Tags } from "./tags";
+import { Tags } from "../app/(root)/components/tags";
 import { getAllTags } from "@/actions/notes";
 
 export async function AppSidebar() {

@@ -1,11 +1,16 @@
+"use client";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Form from "next/form";
 import Image from "next/image";
 
 export const SearchNotes = () => {
+  const pathname = usePathname();
+
+  const action = pathname === "/archives" ? "/archives" : "/";
   return (
-    <Form action="/" className="relative">
+    <Form action={action} className="relative">
       <Input
         type="text"
         name="query"

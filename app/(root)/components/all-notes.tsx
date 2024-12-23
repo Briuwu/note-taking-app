@@ -7,9 +7,10 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   notes: NotesWithTags[];
+  isArchive?: boolean;
 };
 
-export const AllNotes = ({ notes }: Props) => {
+export const AllNotes = ({ notes, isArchive }: Props) => {
   const searchParams = useSearchParams();
   const activeTag = searchParams.get("tag");
   const query = searchParams.get("query");
@@ -54,7 +55,7 @@ export const AllNotes = ({ notes }: Props) => {
         const active = params.noteId === note.id.toString();
         return (
           <Link
-            href={`/notes/${note.id}`}
+            href={isArchive ? `/archives/${note.id}` : `/notes/${note.id}`}
             key={note.id}
             className={cn(
               "block space-y-3 rounded-md p-2",

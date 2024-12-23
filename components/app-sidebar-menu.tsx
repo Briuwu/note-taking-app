@@ -13,13 +13,13 @@ export const AppSidebarMenu = () => {
       name: "All Notes",
       href: "/",
       icon: "/images/icon-home.svg",
-      active: pathname === "/" || /^\/notes\/\w+$/.test(pathname),
+      active: pathname === "/" || /^\/notes\/\d+$/.test(pathname),
     },
     {
       name: "Archived Notes",
       href: "/archives",
       icon: "/images/icon-archive.svg",
-      active: pathname === "/archives" || /^\/archives\/\w+$/.test(pathname),
+      active: pathname === "/archives" || /^\/archives\/\d+$/.test(pathname),
     },
   ];
   return (

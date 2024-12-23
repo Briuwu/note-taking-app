@@ -2,16 +2,16 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { DeleteBtn } from "./delete-btn";
-import { ArchiveBtn } from "./archive-btn";
+import { UnarchiveBtn } from "./archive-btn";
 
 type Props = {
   onDeleteBtn: () => void;
-  onArchiveBtn: () => void;
+  onUnarchiveBtn: () => void;
   isPending: boolean;
 };
 
 export default function NoteOptionsMobile({
-  onArchiveBtn,
+  onUnarchiveBtn,
   onDeleteBtn,
   isPending,
 }: Props) {
@@ -32,7 +32,7 @@ export default function NoteOptionsMobile({
 
       <div className="flex gap-2">
         <DeleteBtn onDeleteBtn={onDeleteBtn} isPending={isPending} />
-        <ArchiveBtn onArchiveBtn={onArchiveBtn} isPending={isPending} />
+        <UnarchiveBtn onUnarchiveBtn={onUnarchiveBtn} isPending={isPending} />
       </div>
     </div>
   );
