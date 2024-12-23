@@ -9,7 +9,7 @@ export default function NotesLayout({
       <MainHeader />
       <div className="grid h-full grid-cols-[auto,1fr]">
         <Notes className="hidden lg:block" />
-        {children}
+        <div className="flex flex-col">{children}</div>
       </div>
     </div>
   );

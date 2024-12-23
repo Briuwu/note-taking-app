@@ -131,6 +131,7 @@ export async function addNote({
     await db.insert(tagsTable).values({
       name: tag,
       noteId: noteData[0].insertedId,
+      userId: user.id,
     });
   }
 

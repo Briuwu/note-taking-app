@@ -10,25 +10,32 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 type Props = {
   onArchiveBtn: () => void;
   isPending: boolean;
+  className?: string;
 };
 
-export const ArchiveBtn = ({ onArchiveBtn, isPending }: Props) => {
+export const ArchiveBtn = ({ onArchiveBtn, isPending, className }: Props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className="w-full justify-start" variant="outline">
+        <Button
+          className={cn("w-full justify-start", className)}
+          variant="outline"
+        >
           <Image
             src={"/images/icon-archive.svg"}
             alt=""
             width={24}
             height={24}
           />
-          <span className="text-preset-4 text-neutral-950">Archive Note</span>
+          <span className="text-preset-4 hidden text-neutral-950 lg:block">
+            Archive Note
+          </span>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="space-y-0">
