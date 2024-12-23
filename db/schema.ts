@@ -1,6 +1,7 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   boolean,
+  index,
   integer,
   pgTable,
   serial,
@@ -21,17 +22,28 @@ export const usersRelations = relations(usersTable, ({ many }) => ({
   tags: many(tagsTable),
 }));
 
-export const notesTable = pgTable("notes", {
-  id: serial("id").primaryKey(),
-  userId: text("user_id")
-    .notNull()
-    .references(() => usersTable.userId, { onDelete: "cascade" }),
-  title: text("title").notNull(),
-  content: text("content").notNull(),
-  is_archived: boolean("is_archived").notNull().default(false),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
-});
+export const notesTable = pgTable(
+  "notes",
+  {
+    id: serial("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => usersTable.userId, { onDelete: "cascade" }),
+    title: text("title").notNull(),
+    content: text("content").notNull(),
+    is_archived: boolean("is_archived").notNull().default(false),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
+  },
+  (table) => [
+    {
+      searchIndex: index("search_index").using(
+        "gin",
+        sql`(setweight(to_tsvector('english', ${table.title}), 'A') || setweight(to_tsvector('english', ${table.content}), 'B'))`,
+      ),
+    },
+  ],
+);
 
 export const notesRelations = relations(notesTable, ({ one, many }) => ({
   author: one(usersTable, {

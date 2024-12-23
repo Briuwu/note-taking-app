@@ -1,5 +1,5 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { NotesWithTags } from "@/types";
 import { format } from "date-fns";
 import Link from "next/link";
@@ -10,10 +10,47 @@ type Props = {
 };
 
 export const AllNotes = ({ notes }: Props) => {
+  const searchParams = useSearchParams();
+  const activeTag = searchParams.get("tag");
+  const query = searchParams.get("query");
   const params = useParams();
+
+  const filteredNotes = notes.filter((note) => {
+    if (!activeTag && !query) {
+      return true;
+    }
+
+    if (activeTag && !query) {
+      return note.tags.some(
+        (tag) => tag.name.toLowerCase() === activeTag.toLowerCase(),
+      );
+    }
+
+    if (!activeTag && query) {
+      const title = note.title.toLowerCase().includes(query.toLowerCase());
+      if (title) {
+        return true;
+      }
+
+      const content = note.content.toLowerCase().includes(query.toLowerCase());
+      if (content) {
+        return true;
+      }
+
+      const tag = note.tags.some((tag) =>
+        tag.name.toLowerCase().includes(query.toLowerCase()),
+      );
+      if (tag) {
+        return true;
+      }
+    }
+
+    return false;
+  });
+
   return (
     <div className="divide-y divide-neutral-200">
-      {notes.map((note) => {
+      {filteredNotes.map((note) => {
         const active = params.noteId === note.id.toString();
         return (
           <Link

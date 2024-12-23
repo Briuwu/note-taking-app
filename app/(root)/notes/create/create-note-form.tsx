@@ -68,7 +68,7 @@ export function CreateNoteForm() {
   }
 
   return (
-    <div className="flex">
+    <div className="flex flex-1">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

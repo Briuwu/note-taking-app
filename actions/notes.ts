@@ -3,7 +3,7 @@
 import { db } from "@/db";
 import { notesTable, tagsTable } from "@/db/schema";
 import { currentUser } from "@clerk/nextjs/server";
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { cache } from "react";
@@ -21,6 +21,47 @@ export const getAllNotes = cache(async () => {
       tags: true,
     },
   });
+
+  if (!notesData) {
+    return [];
+  }
+
+  return notesData;
+});
+
+export const getNotesByTag = cache(async (tag: string) => {
+  const user = await currentUser();
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const notesData = await db.query.tagsTable.findMany({
+    where: and(eq(tagsTable.userId, user.id), eq(tagsTable.name, tag)),
+    with: {
+      note: true,
+    },
+  });
+
+  if (!notesData) {
+    return [];
+  }
+
+  return notesData;
+});
+
+export const searchNotes = cache(async (query: string) => {
+  const user = await currentUser();
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const notesData = await db.select().from(notesTable).where(sql`(
+      setweight(to_tsvector('english', ${notesTable.title}), 'A') ||
+      setweight(to_tsvector('english', ${notesTable.content}), 'B'))
+      @@ to_tsquery('english', ${query}
+    )`);
 
   if (!notesData) {
     return [];
