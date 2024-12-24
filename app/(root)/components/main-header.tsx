@@ -4,13 +4,14 @@ import Image from "next/image";
 
 type Props = {
   isArchive?: boolean;
+  isSettings?: boolean;
 };
 
-export const MainHeader = ({ isArchive }: Props) => {
+export const MainHeader = ({ isArchive, isSettings }: Props) => {
   return (
     <header className="hidden items-center justify-between border-b border-neutral-200 px-8 py-[18.5px] lg:flex">
       <h1 className="text-preset-1">
-        {isArchive ? "Archived Notes" : "All Notes"}
+        {isArchive ? "Archived Notes" : isSettings ? "Settings" : "All Notes"}
       </h1>
       <div className="flex items-center gap-4">
         <SearchNotes />
