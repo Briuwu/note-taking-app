@@ -15,7 +15,7 @@ export const SearchNotes = () => {
         type="text"
         name="query"
         placeholder="Search by title, content, or tags..."
-        className="w-[300px] px-4 py-3 pl-10"
+        className="placeholder:text-preset-5 text-preset-5 px-4 py-3 pl-10 lg:w-[300px]"
       />
       <Button
         type="submit"
