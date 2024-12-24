@@ -8,7 +8,9 @@ export default async function RootLayout({
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="relative w-full">{children}</main>
+      <main className="relative w-full dark:bg-neutral-950 dark:text-neutral-200">
+        {children}
+      </main>
       <Toaster />
     </SidebarProvider>
   );

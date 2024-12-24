@@ -36,7 +36,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${inter.variable} ${notoSerif.variable} ${sourceCodePro.variable} font-provider relative antialiased`}
+          className={`${inter.variable} ${notoSerif.variable} ${sourceCodePro.variable} font-provider relative antialiased dark:bg-neutral-950 dark:text-neutral-200`}
         >
           <header className="bg-neutral-100 px-4 py-3 md:px-8 md:py-6 lg:hidden">
             <Link href="/">

@@ -8,10 +8,10 @@ export default function SettingsLayout({
     <div className="grid min-h-screen lg:grid-rows-[auto,1fr]">
       <MainHeader isSettings />
       <div className="grid h-full grid-cols-[auto,1fr]">
-        <div className="border-r border-neutral-200">
+        <div className="border-r border-neutral-200 dark:border-neutral-700">
           <SettingsNav />
         </div>
-        <div className="flex flex-col lg:p-8">{children}</div>
+        <div className="flex flex-col dark:text-white lg:p-8">{children}</div>
       </div>
     </div>
   );

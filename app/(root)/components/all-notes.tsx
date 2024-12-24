@@ -50,7 +50,7 @@ export const AllNotes = ({ notes, isArchive }: Props) => {
   });
 
   return (
-    <div className="divide-y divide-neutral-200">
+    <div className="divide-y divide-neutral-200 dark:divide-neutral-800">
       {filteredNotes.map((note) => {
         const active = params.noteId === note.id.toString();
         return (
@@ -59,7 +59,7 @@ export const AllNotes = ({ notes, isArchive }: Props) => {
             key={note.id}
             className={cn(
               "block space-y-3 rounded-md p-2",
-              active && "bg-neutral-100",
+              active && "bg-neutral-100 dark:bg-neutral-800",
             )}
           >
             <p className="text-preset-3">{note.title}</p>
@@ -73,7 +73,7 @@ export const AllNotes = ({ notes, isArchive }: Props) => {
                 </span>
               ))}
             </div>
-            <p className="text-preset-6 text-neutral-700">
+            <p className="text-preset-6 text-neutral-700 dark:text-neutral-300">
               {format(new Date(note.createdAt), "dd MMM yyyy")}
             </p>
           </Link>

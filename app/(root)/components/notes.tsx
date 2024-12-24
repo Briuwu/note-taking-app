@@ -23,7 +23,7 @@ export const Notes = async ({ className, isArchive }: Props) => {
   return (
     <div
       className={cn(
-        "h-full border-neutral-200 px-4 pt-5 md:px-8 lg:w-[290px] lg:border-r",
+        "h-full border-neutral-200 px-4 pt-5 dark:border-neutral-700 md:px-8 lg:w-[290px] lg:border-r",
         className,
       )}
     >
